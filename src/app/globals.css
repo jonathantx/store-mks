@@ -1,5 +1,8 @@
 :root {
   --border-radius: 12px;
+  --primary-color: #0F52BA; 
+  --white-color: #FFFFFF;
+  --bg-color: #F9F9F9;
 }
 
 * {
