@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/header";
+import { ProductsList } from "./components/products-list";
 
 const monteserrat = Montserrat({
   weight: ['300', '400', '500', '600'],
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={monteserrat.className}>
         <Header/>
           {children}
+          <ProductsList />
         </body>
     </html>
   );
