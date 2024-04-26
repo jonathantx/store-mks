@@ -14,6 +14,7 @@ const ShoppingCart = styled.button`
     font-weight: 700;
     font-size: 18px;
     line-height: 21.94px;
+    cursor: pointer;
 `
 
 const ButtonContainer = styled.div`
@@ -32,12 +33,16 @@ const CartCount = styled.p`
     margin: 0;
 `
 
-export default function CartControl() {
+interface ButtonShoppingCartProps {
+    onClick: () => void;
+}
+
+export default function CartControl({ onClick }: ButtonShoppingCartProps) {
 
     const {value} = useLocalStorage('cart-items', [])
 
     return (
-        <ShoppingCart >
+        <ShoppingCart onClick={onClick}>
             <ButtonContainer >
                 <ShoppingCartIcon/>
                 {value.length && <CartCount>{value.length}</CartCount>}

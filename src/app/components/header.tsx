@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ButtonShoppingCart from "./cart-control";
 
 interface HeaderProps {
-
+    onCartClick: () => void;
 }
 
 const TagHeader = styled.header `
@@ -41,14 +41,14 @@ const SubTitle = styled.small`
 
 
 
-export function Header(props: HeaderProps) {
+export function Header({ onCartClick }: HeaderProps) {
 
     return (
         <TagHeader>
             <Logo className="">MKS
                 <SubTitle>Sistemas</SubTitle>
             </Logo>
-            <ButtonShoppingCart />
+            <ButtonShoppingCart onClick={onCartClick} />
         </TagHeader>
     );
 
