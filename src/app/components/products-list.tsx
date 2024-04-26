@@ -2,6 +2,15 @@
 
 import styled from "styled-components"
 import { ProductCard } from "./product-card"
+import { useEffect, useState } from "react"
+
+interface Product {
+    id: number
+    name: string
+    photo: string
+    price: number
+    description: string
+}
 
 const ListContainer = styled.div`
     width: 938px;
@@ -15,9 +24,29 @@ const ListContainer = styled.div`
 
 export function ProductsList(){
 
+    const [products, setProducts] = useState<Product[]>([])
+
+    useEffect(() => {
+
+        const url = new URL('https://mks-frontend-challenge-04811e8151e6.herokuapp.com/api/v1/products?page=1&rows=10&sortBy=name&orderBy=ASC')
+
+        // url.searchParams.set('pageIndex', String(page - 1))
+        
+        // if(search.length > 0)
+        //     url.searchParams.set('query', search)
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            setProducts(data.products)
+        })
+    }, []) 
+
     return (
         <ListContainer>
-            <ProductCard title="Apple Watch Series 4 GPS" image="https://s3-alpha-sig.figma.com/img/f905/4b8f/394d83c88a4eeb9bbb1d1cff1bbe5422?Expires=1714953600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OLyVlp8nVqkFIdyxh353Yx1kDSnydGyLoIF~0G9uxWrBOZ-kKiKzGo2No~rXrY5aejRMNmbeQRu7iIMgyocKYZuzu4Z7YZ5DM8CIdLjTpqMbh8mds1yRIawX5KpNmwy5w~EvyAw2dRDSX8rPXXAM-28v117SvDBxeBB7DJ7cyIYDNKe7NxSdriU9~UrRcHqCYc4JUTwEhok6UhprEIl8alDOnQR6j43Fqs~zFHB5YTGSyOeMrLmtn71lQkpJf9PvrHSm8G8x999ki7Bbj23Ze9jdqjAq55Jv2mJNBQrSU0j4aXgPYxsnSjJ4QtAGdI58UIukaof7IP7oP2p43TC1QQ__" price={399} />
+            {products.map(product => {
+                return <ProductCard key={product.id} photo={product.photo} price={product.price} name={product.name} description={product.description}/>
+            })}
         </ListContainer>
     )
 }
