@@ -13,12 +13,15 @@ interface Product {
 }
 
 const ListContainer = styled.div`
-    width: 938px;
-    height: 601px;
+    /* width: 938px;
+    height: 601px; */
+    max-width: 100%;
     margin: auto;
     display: grid;
+    justify-content: center;
     grid-template-columns: repeat(4, 218px);
     grid-gap: 32px;
+    place-items: center;
     margin-top: 100px;
 `
 

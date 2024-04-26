@@ -15,7 +15,8 @@ const ContainerBuy = styled.button`
     cursor: pointer;
     color: var(--white-color);
     position: absolute;
-    bottom: 0;
+    bottom: 0px;
+    /* top: 18px; */
 `
 
 const ContainerButton = styled.div`
