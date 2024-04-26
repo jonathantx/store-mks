@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/header";
 import { ProductsList } from "./components/products-list";
+import { CartSidebar } from "./components/cart-sidebar";
 
 const monteserrat = Montserrat({
   weight: ['300', '400', '500', '600'],
@@ -25,6 +26,7 @@ export default function RootLayout({
         <Header/>
           {children}
           <ProductsList />
+          <CartSidebar />
         </body>
     </html>
   );
