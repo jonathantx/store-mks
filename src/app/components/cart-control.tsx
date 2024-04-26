@@ -34,10 +34,7 @@ const CartCount = styled.p`
 
 export default function CartControl() {
 
-    const {value} = useLocalStorage('cart-items')
-
-    console.log(value.items);
-    
+    const {value} = useLocalStorage('cart-items', [])
 
     return (
         <ShoppingCart >

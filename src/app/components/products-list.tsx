@@ -13,16 +13,23 @@ interface Product {
 }
 
 const ListContainer = styled.div`
-    /* width: 938px;
-    height: 601px; */
     max-width: 100%;
     margin: auto;
     display: grid;
     justify-content: center;
-    grid-template-columns: repeat(4, 218px);
+    grid-template-columns: repeat(auto-fill, 218px);
     grid-gap: 32px;
     place-items: center;
-    margin-top: 100px;
+    margin-top: 50px;
+
+    @media (min-width: 1200px) {
+        grid-template-columns: repeat(4, 218px);
+        grid-gap: 32px;
+    }
+
+    @media (min-width: 768px) {
+        margin-top: 100px;
+    }
 `
 
 export function ProductsList(){

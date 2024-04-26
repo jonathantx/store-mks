@@ -11,16 +11,24 @@ const TagHeader = styled.header `
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 35px 160px;
     height: 101px;
     background-color: var(--primary-color);
+    padding: 12px 24px;
+
+    @media (min-width: 768px) {
+        padding: 35px 160px;
+    }
 `
 
 const Logo = styled.a`
     font-weight: 600;
-    font-size: 40px;
-    line-height: 19px;
+    font-size: 24px;
+    line-height: 150%;
     color: var(--white-color);
+
+    @media (min-width: 768px) {
+        font-size: 40px;
+    }
 `
 
 const SubTitle = styled.small`
