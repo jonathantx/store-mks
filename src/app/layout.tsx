@@ -7,6 +7,7 @@ import { ProductsList } from "./components/products-list";
 import { CartSidebar } from "./components/cart-sidebar";
 import { useState } from "react";
 import { metadata } from "./metadata";
+import { Footer } from "./components/footer";
 
 const monteserrat = Montserrat({
     weight: ['300', '400', '500', '600'],
@@ -29,11 +30,12 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
 
     return (
         <html lang="pt-br">
-        <body className={monteserrat.className}>
-            <Header onCartClick={openSidebar}/>
-            {children}
-            <ProductsList />
+            <body className={monteserrat.className}>
+                <Header onCartClick={openSidebar}/>
+                {children}
+                <ProductsList />
                 <CartSidebar isOpen={isSidebarOpen} onClose={closeSidebar} />
+                <Footer />
             </body>
         </html>
     );
