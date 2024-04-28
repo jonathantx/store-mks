@@ -5,7 +5,9 @@ const FooterStyled = styled.footer`
     height: 34px;
     top: 990px;
     background-color: #EEEEEE;
-    margin-top: 50px;
+    position: absolute;
+    bottom: 0px;
+    /* margin-top: 50px; */
     padding: 20px 20px;
     display: flex;
     align-items: center;

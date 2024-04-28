@@ -1,8 +1,10 @@
 "use client"
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { CartProduct } from './cart-product';
 import { AnimatePresence, motion } from 'framer-motion';
+import { Product } from "../types"
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 const Sidebar = styled(motion.div)<{ isOpen: boolean }>`
     position: fixed;
@@ -58,10 +60,21 @@ const ContainerListCartProducts = styled.div`
 interface SidebarProps {
     isOpen: boolean;
     onClose: () => void;
+    cart: Product[];
 }
 
 
 export function CartSidebar ({ isOpen, onClose }: SidebarProps) {
+
+    const [cart, setCart] = useState<Product[]>([]);
+
+    useEffect(() => {
+        const storedCart = localStorage.getItem("cart-items");
+        if (storedCart) {
+            setCart(JSON.parse(storedCart));
+        }
+    }, []);
+
     return (
         <AnimatePresence>
             {isOpen && (
@@ -79,8 +92,8 @@ export function CartSidebar ({ isOpen, onClose }: SidebarProps) {
                     <CloseButtonCart onClick={onClose}>X</CloseButtonCart>
                 </ContainerHeaderCart>
                 <ContainerListCartProducts>
-                        {Array.from({length: 2}).map(m => (
-                            <CartProduct />
+                    {cart.map(product => ( 
+                        <CartProduct key={product.id} product={product} />
                     ))}
                 </ContainerListCartProducts>
             </Sidebar>

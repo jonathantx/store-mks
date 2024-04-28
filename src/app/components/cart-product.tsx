@@ -1,5 +1,6 @@
 "use client"
 import styled from "styled-components"
+import {Product} from "../types"
 
 const CartItem = styled.div`
     margin-bottom: 10px;
@@ -73,12 +74,17 @@ const AmountProductCard = styled.div`
 
 `
 
-export function CartProduct () {
+interface CartProductProps {
+    product: Product; // Importe o tipo Product do arquivo onde ele está definido
+}
+
+
+export function CartProduct ({product}: CartProductProps  ) {
 
     return (
         <CartItem>
-            <PhotoCart src="https://mks-sistemas.nyc3.digitaloceanspaces.com/products/applewatch-series7.webp" />
-            <NameProductCart>Apple Watch Series 4 GPS</NameProductCart>
+            <PhotoCart src={product.photo} />
+            <NameProductCart>{product.name}</NameProductCart>
             <AmountProductCard>
                 <button>-</button>
                 <div></div>
@@ -86,7 +92,7 @@ export function CartProduct () {
                 <div></div>
                 <button>+</button>
             </AmountProductCard>
-            <PriceProductCart>R$399</PriceProductCart>
+            <PriceProductCart>{product.price}</PriceProductCart>
             <DeletedProductCart>X</DeletedProductCart>
         </CartItem>
     )
