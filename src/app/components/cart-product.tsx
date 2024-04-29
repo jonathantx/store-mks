@@ -6,7 +6,7 @@ import { useState } from "react"
 const CartItem = styled.div`
     margin-bottom: 10px;
     background-color: var(--white-color);
-    width: 379px;
+    width: 300px;
     height: 95px;
     border-radius: 8px;
     box-shadow: -2px 2px 10px 0px #0000000D;
@@ -16,6 +16,10 @@ const CartItem = styled.div`
     justify-content: space-between;
     gap: 10px;
     position: relative;
+
+    @media(min-width: 1200px){
+        width: 379px;
+    }
 `
 
 const PhotoCart = styled.img`

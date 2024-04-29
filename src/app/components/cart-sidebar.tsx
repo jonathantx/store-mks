@@ -11,11 +11,16 @@ const Sidebar = styled(motion.div)<{ isopen: boolean }>`
     right: ${(props) => (props.isopen ? "0" : "-300px")}; 
     z-index: 999;
     height: 100%;
-    width: 486px;
+    width: 400px;
     background-color: var(--primary-color);
     box-shadow: -5px 0px 6px 0px #00000021;
     padding: 20px;
     display: ${(props) => (props.isopen ? "block" : "none")};
+    overflow-y: auto;
+
+    @media(min-width: 1200px){
+        width: 486px;
+    }
 `;
 
 const ContainerHeaderCart = styled.div`
