@@ -7,6 +7,7 @@ interface ProductCardProps {
     photo: string
     price: number
     description: string
+    addToCart: () => void;
 }
 
 const Card = styled.div`
@@ -108,7 +109,7 @@ export function ProductCard(props: ProductCardProps){
             <ContainerDescriptionCard>
                 <DescriptionCard>{props.description}</DescriptionCard>
             </ContainerDescriptionCard>
-            <ButtonBuy />
+            <ButtonBuy onClick={props.addToCart} />
         </Card>
     )
 }

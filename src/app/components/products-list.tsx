@@ -3,14 +3,7 @@
 import styled from "styled-components"
 import { ProductCard } from "./product-card"
 import { useEffect, useState } from "react"
-
-interface Product {
-    id: number
-    name: string
-    photo: string
-    price: number
-    description: string
-}
+import { Product } from "../types"
 
 const ListContainer = styled.div`
     max-width: 100%;
@@ -32,7 +25,11 @@ const ListContainer = styled.div`
     }
 `
 
-export function ProductsList(){
+interface ProductsListProps {
+    addToCart: (product: Product) => void;
+}
+
+export function ProductsList({ addToCart }: ProductsListProps){
 
     const [products, setProducts] = useState<Product[]>([])
 
@@ -53,10 +50,13 @@ export function ProductsList(){
     }, []) 
 
     return (
-        <ListContainer>
-            {products.map(product => {
-                return <ProductCard key={product.id} photo={product.photo} price={product.price} name={product.name} description={product.description}/>
-            })}
-        </ListContainer>
+        <>
+            <ListContainer>
+                {products.map(product => {
+                    return <ProductCard key={product.id} photo={product.photo} price={product.price} name={product.name} description={product.description} addToCart={() => addToCart(product)}/>
+                })}
+            </ListContainer>
+        </>
+
     )
 }

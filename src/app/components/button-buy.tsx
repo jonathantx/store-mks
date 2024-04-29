@@ -1,3 +1,4 @@
+"use client"
 import styled from "styled-components"
 import { ButtonBuyIcon } from "./button-buy-icon"
 
@@ -29,10 +30,14 @@ const ContainerButton = styled.div`
     gap: 10px;
 `
 
-export function ButtonBuy() {
+interface ButtonBuyProps {
+    onClick: () => void;
+}
+
+export function ButtonBuy({onClick} : ButtonBuyProps) {
 
     return (
-        <ContainerBuy>
+        <ContainerBuy onClick={onClick}>
             <ContainerButton>
                 <ButtonBuyIcon />
                 COMPRAR
