@@ -97,13 +97,14 @@ export function CartProduct ({product, onUpdateQuantity, onRemove }: CartProduct
     const price = formatValueReal(product.price);  
     
     const incrementQuantity = () => {
-        const newQuantity = (quantity || 0) + 1;
+
+        const newQuantity = (product.quantity || 0) + 1;
         setQuantity(newQuantity);
         onUpdateQuantity(product.id, newQuantity);
     };
 
     const decrementQuantity = () => {
-        const newQuantity = quantity > 1 ? quantity - 1 : quantity;
+        const newQuantity = (product.quantity || 0) > 1 ? quantity - 1 : (product.quantity || 0);
         setQuantity(newQuantity);
         onUpdateQuantity(product.id, newQuantity);
     };
