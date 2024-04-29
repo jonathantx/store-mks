@@ -4,8 +4,6 @@ import styled from "styled-components"
 import { ProductCard } from "./product-card"
 import { useEffect, useState } from "react"
 import { Product } from "../types"
-import { CartSidebar } from "./cart-sidebar"
-
 
 const ListContainer = styled.div`
     max-width: 100%;

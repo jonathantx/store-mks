@@ -4,11 +4,12 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { Header } from "./components/header";
 import { CartSidebar } from "./components/cart-sidebar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { metadata } from "./metadata";
 import { Footer } from "./components/footer";
 import { Product } from "./types"
 import { ProductsList } from "./components/products-list";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 const monteserrat = Montserrat({
     weight: ['300', '400', '500', '600'],
@@ -33,12 +34,57 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
 
     const addToCart = (product: Product) => {
 
-        const newCart = [...cart, product]
+        const existingProductIndex = cart.findIndex(item => item.id === product.id);
 
-        setCart(newCart);
+        if (existingProductIndex !== -1) {
+            
+            const updatedCart = cart.map((item, index) => {
+                if (index === existingProductIndex) {
+                    return {
+                        ...item,
+                        quantity: (item.quantity || 0) + 1 
+                    };
+                }
+                return item;
+            });
 
-        localStorage.setItem('cart-items', JSON.stringify(itemsArray));
+            setCart(updatedCart);
+            localStorage.setItem('cart-items', JSON.stringify(updatedCart));
+        } else {
+            
+            const newCart = [...cart, { ...product, quantity: 1 }];
+
+            setCart(newCart);
+            localStorage.setItem('cart-items', JSON.stringify(newCart));
+        }
+
+        setIsSidebarOpen(true);
     }
+
+    const handleUpdateQuantity = (productId: number, newQuantity: number) => {
+        const updatedCart = cart.map(item => {
+            if (item.id === productId) {
+                return { ...item, quantity: newQuantity };
+            }
+            return item;
+        });
+        setCart(updatedCart);
+        localStorage.setItem('cart-items', JSON.stringify(updatedCart));
+    };
+
+    const handleRemoveItem = (productId: number) => {
+        const updatedCart = cart.filter(item => item.id !== productId);
+        setCart(updatedCart);
+        localStorage.setItem('cart-items', JSON.stringify(updatedCart));
+    };
+
+
+    useEffect(() => {
+
+        const cartItems = JSON.parse(localStorage.getItem('cart-items') || '[]');
+        setCart(cartItems);
+
+    }, [])
 
     return (
         <html lang="pt-br">
@@ -48,7 +94,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
                     <ProductsList addToCart={addToCart}/>
                     {children}
                 </main>
-                <CartSidebar isOpen={isSidebarOpen} onClose={closeSidebar} cart={cart}/>
+                <CartSidebar isopen={isSidebarOpen} onClose={closeSidebar} cart={cart} onUpdateQuantity={handleUpdateQuantity} onRemove={handleRemoveItem}/>
                 <Footer />
             </body>
         </html>

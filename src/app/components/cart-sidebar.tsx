@@ -1,4 +1,3 @@
-"use client"
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { CartProduct } from './cart-product';
@@ -6,17 +5,17 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Product } from "../types"
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
-const Sidebar = styled(motion.div)<{ isOpen: boolean }>`
+const Sidebar = styled(motion.div)<{ isopen: boolean }>`
     position: fixed;
     top: 0;
-    right: ${(props) => (props.isOpen ? "0" : "-300px")}; 
+    right: ${(props) => (props.isopen ? "0" : "-300px")}; 
     z-index: 999;
     height: 100%;
     width: 486px;
     background-color: var(--primary-color);
     box-shadow: -5px 0px 6px 0px #00000021;
     padding: 20px;
-    display: ${(props) => (props.isOpen ? "block" : "none")};
+    display: ${(props) => (props.isopen ? "block" : "none")};
 `;
 
 const ContainerHeaderCart = styled.div`
@@ -40,7 +39,6 @@ const DeComprasTitle = styled.h2`
     font-size: 24px;
 `;
 
-
 const CloseButtonCart = styled.button`
     width: 38px;
     height: 38px;
@@ -58,32 +56,26 @@ const ContainerListCartProducts = styled.div`
 `
 
 interface SidebarProps {
-    isOpen: boolean;
+    isopen: boolean;
     onClose: () => void;
     cart: Product[];
+    onUpdateQuantity: (productId: number, newQuantity: number) => void;
+    onRemove: (productId: number) => void;
 }
 
+export function CartSidebar ({ isopen, onClose, cart, onUpdateQuantity, onRemove }: SidebarProps) {
 
-export function CartSidebar ({ isOpen, onClose }: SidebarProps) {
 
-    const [cart, setCart] = useState<Product[]>([]);
-
-    useEffect(() => {
-        const storedCart = localStorage.getItem("cart-items");
-        if (storedCart) {
-            setCart(JSON.parse(storedCart));
-        }
-    }, []);
 
     return (
         <AnimatePresence>
-            {isOpen && (
+            {isopen && (
             <Sidebar 
                 initial={{ x: "100%" }} 
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
                 transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
-                isOpen={isOpen}>
+                isopen={true}>
                 <ContainerHeaderCart>
                     <TitleSideBar> 
                         <CarrinhoTitle>Carrinho</CarrinhoTitle>
@@ -93,7 +85,7 @@ export function CartSidebar ({ isOpen, onClose }: SidebarProps) {
                 </ContainerHeaderCart>
                 <ContainerListCartProducts>
                     {cart.map(product => ( 
-                        <CartProduct key={product.id} product={product} />
+                        <CartProduct key={product.id} product={product} onUpdateQuantity={onUpdateQuantity} onRemove={onRemove} />
                     ))}
                 </ContainerListCartProducts>
             </Sidebar>

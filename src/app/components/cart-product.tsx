@@ -1,6 +1,7 @@
 "use client"
 import styled from "styled-components"
 import {Product} from "../types"
+import { useState } from "react"
 
 const CartItem = styled.div`
     margin-bottom: 10px;
@@ -28,6 +29,7 @@ const NameProductCart = styled.p`
     font-size: 13px;
     font-weight: 400;
     line-height: 17px;
+    flex: 1;
 `
 
 const PriceProductCart = styled.strong`
@@ -47,6 +49,7 @@ const DeletedProductCart = styled.button`
     color: var(--white-color);
     border-radius: 50%;
     border: none;
+    cursor: pointer;
 `
 
 const AmountProductCard = styled.div`
@@ -75,25 +78,53 @@ const AmountProductCard = styled.div`
 `
 
 interface CartProductProps {
-    product: Product; // Importe o tipo Product do arquivo onde ele está definido
+    product: Product;
+    onUpdateQuantity: (productId: number, newQuantity: number) => void; 
+    onRemove: (productId: number) => void; 
 }
 
 
-export function CartProduct ({product}: CartProductProps  ) {
+export function CartProduct ({product, onUpdateQuantity, onRemove }: CartProductProps) {
+
+    const [quantity, setQuantity] = useState(product.quantity || 1);
+
+
+    function formatValueReal(valor: string | number): string {
+        const valorNumero = typeof valor === 'string' ? parseFloat(valor) : valor;
+        return valorNumero.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    }
+
+    const price = formatValueReal(product.price);  
+    
+    const incrementQuantity = () => {
+        const newQuantity = (quantity || 0) + 1;
+        setQuantity(newQuantity);
+        onUpdateQuantity(product.id, newQuantity);
+    };
+
+    const decrementQuantity = () => {
+        const newQuantity = quantity > 1 ? quantity - 1 : quantity;
+        setQuantity(newQuantity);
+        onUpdateQuantity(product.id, newQuantity);
+    };
+
+    const handleRemove = () => {
+        onRemove(product.id);
+    };
 
     return (
         <CartItem>
             <PhotoCart src={product.photo} />
             <NameProductCart>{product.name}</NameProductCart>
             <AmountProductCard>
-                <button>-</button>
+                <button onClick={decrementQuantity}>-</button>
                 <div></div>
-                <small>1</small>
+                <small>{product.quantity}</small>
                 <div></div>
-                <button>+</button>
+                <button onClick={incrementQuantity}>+</button>
             </AmountProductCard>
-            <PriceProductCart>{product.price}</PriceProductCart>
-            <DeletedProductCart>X</DeletedProductCart>
+            <PriceProductCart>{price}</PriceProductCart>
+            <DeletedProductCart onClick={handleRemove}>X</DeletedProductCart>
         </CartItem>
     )
 }
