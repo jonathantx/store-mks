@@ -5,6 +5,7 @@ import ButtonShoppingCart from "./cart-control";
 
 interface HeaderProps {
     onCartClick: () => void;
+    totalCart: number;
 }
 
 const TagHeader = styled.header `
@@ -41,14 +42,14 @@ const SubTitle = styled.small`
 
 
 
-export function Header({ onCartClick }: HeaderProps) {
+export function Header({ onCartClick, totalCart }: HeaderProps) {
 
     return (
         <TagHeader>
             <Logo className="">MKS
                 <SubTitle>Sistemas</SubTitle>
             </Logo>
-            <ButtonShoppingCart onClick={onCartClick} />
+            <ButtonShoppingCart onClick={onCartClick} total={totalCart} />
         </TagHeader>
     );
 

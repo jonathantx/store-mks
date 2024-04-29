@@ -22,6 +22,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
 
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [cart, setCart] = useState<Product[]>([]);
+    const [total, setTotal] = useState(0)
 
 
     const openSidebar = () => {
@@ -86,10 +87,14 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
 
     }, [])
 
+    useEffect(() => {
+        setTotal(cart.length);
+    }, [cart]);
+
     return (
         <html lang="pt-br">
             <body className={monteserrat.className}>
-                <Header onCartClick={openSidebar}/>
+                <Header onCartClick={openSidebar} totalCart={total}/>
                 <main>
                     <ProductsList addToCart={addToCart}/>
                     {children}

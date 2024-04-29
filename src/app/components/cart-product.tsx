@@ -104,7 +104,7 @@ export function CartProduct ({product, onUpdateQuantity, onRemove }: CartProduct
     };
 
     const decrementQuantity = () => {
-        const newQuantity = (product.quantity || 0) > 1 ? quantity - 1 : (product.quantity || 0);
+        const newQuantity = (product.quantity || 0) > 1 ? (product.quantity || 0) - 1 : (quantity || 0);
         setQuantity(newQuantity);
         onUpdateQuantity(product.id, newQuantity);
     };

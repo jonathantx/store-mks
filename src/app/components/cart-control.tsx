@@ -35,9 +35,10 @@ const CartCount = styled.p`
 
 interface ButtonShoppingCartProps {
     onClick: () => void;
+    total: number
 }
 
-export default function CartControl({ onClick }: ButtonShoppingCartProps) {
+export default function CartControl({ onClick, total }: ButtonShoppingCartProps) {
 
     const {value} = useLocalStorage('cart-items', [])
 
@@ -45,7 +46,7 @@ export default function CartControl({ onClick }: ButtonShoppingCartProps) {
         <ShoppingCart onClick={onClick}>
             <ButtonContainer >
                 <ShoppingCartIcon/>
-                {value.length && <CartCount>{value.length}</CartCount>}
+                {<CartCount>{total}</CartCount>}
             </ButtonContainer>
         </ShoppingCart>
     )
