@@ -10,11 +10,18 @@ import { Footer } from "./components/footer";
 import { Product } from "./types"
 import { ProductsList } from "./components/products-list";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import styled from "styled-components";
 
 const monteserrat = Montserrat({
     weight: ['300', '400', '500', '600'],
     subsets: ["latin"] 
 });
+
+const Body = styled.body`
+    position: relative; 
+    min-height: 100vh; 
+    padding-bottom: 50px; 
+`
 
 
 
@@ -93,7 +100,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
 
     return (
         <html lang="pt-br">
-            <body className={monteserrat.className}>
+            <Body className={monteserrat.className}>
                 <Header onCartClick={openSidebar} totalCart={total}/>
                 <main>
                     <ProductsList addToCart={addToCart}/>
@@ -101,7 +108,7 @@ export default function RootLayout({children,}: Readonly<{children: React.ReactN
                 </main>
                 <CartSidebar isopen={isSidebarOpen} onClose={closeSidebar} cart={cart} onUpdateQuantity={handleUpdateQuantity} onRemove={handleRemoveItem}/>
                 <Footer />
-            </body>
+            </Body>
         </html>
     );
 }

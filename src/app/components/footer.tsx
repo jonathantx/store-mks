@@ -3,15 +3,16 @@ import styled from "styled-components"
 const FooterStyled = styled.footer`
     width: 100%;
     height: 34px;
-    top: 990px;
     background-color: #EEEEEE;
-    position: absolute;
-    bottom: 0px;
-    /* margin-top: 50px; */
+    position: absolute; 
+    bottom: 0;
+    left: 0;
     padding: 20px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 100;
+    margin-top: 50px;
 
     p {
         font-size: 12px;
